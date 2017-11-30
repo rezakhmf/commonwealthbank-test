@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CommBank</string>
+    <string name="title_activity_account">Account Details</string>
+</resources>
