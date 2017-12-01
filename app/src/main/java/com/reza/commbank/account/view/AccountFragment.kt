@@ -2,6 +2,7 @@ package com.reza.commbank.account.view
 
 import android.app.Fragment
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.reza.commbank.account.model.AccountTransactions
 import com.reza.commbank.account.module.AccountModule
 import com.reza.commbank.account.presenter.AccountPresenter
 import com.reza.commbank.account.presenter.IAccountPresenter
+import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.view.*
 import javax.inject.Inject
 
@@ -46,31 +48,33 @@ class AccountFragment : Fragment(), IAccountView {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_account, container, false)
+        return inflater?.inflate(R.layout.fragment_account, container, false)
+    }
 
-        view.accountNumber.text = accountTransactions?.account?.accountName
-        view.fundsResult.text = accountTransactions?.account?.balance.toString()
-        view.balanceResult.text = accountTransactions?.account?.available.toString()
-
-        return rootView
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        accountPresenter?.displayAccount()
 
     }
 
     override fun showAccount(accountTransactions: AccountTransactions) {
-        this.accountTransactions = accountTransactions;
+        this.accountTransactions = accountTransactions
+        accountNumber?.text = accountTransactions?.account?.accountName
+        fundsResult?.text = accountTransactions?.account?.balance.toString()
+        balanceResult?.text = accountTransactions?.account?.available.toString()
+        //progressBarContainer.visibility = View.INVISIBLE
 
     }
 
     override fun loadingStarted() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun loadingFailed(errorMessage: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun accountClicked(accountTransactions: AccountTransactions) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     interface CallBack {

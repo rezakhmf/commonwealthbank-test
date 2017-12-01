@@ -33,7 +33,6 @@ class AccountModule(val fragment: AccountFragment) {
         return retrofit.create(IAccountEndpoint::class.java)
     }
 
-    //TODO provide adaptoer
 //    @Provides
 //    @FragmentScope
 //    fun provideAccountAdaptor(): AccountAdapter {

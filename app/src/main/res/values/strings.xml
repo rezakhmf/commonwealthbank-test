@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CommBank</string>
     <string name="title_activity_account">Account Details</string>
+    <color name="titletextcolor">#000000</color>
 </resources>

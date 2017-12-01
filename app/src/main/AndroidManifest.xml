@@ -17,7 +17,8 @@
         <activity
             android:name=".account.interactor.AccountActivity"
             android:label="@string/title_activity_account"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:logo="@drawable/icon_welcome_logo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
