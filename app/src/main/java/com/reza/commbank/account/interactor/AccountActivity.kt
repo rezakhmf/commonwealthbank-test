@@ -25,7 +25,6 @@ class AccountActivity : AppCompatActivity(), AccountFragment.CallBack {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setIcon(R.drawable.icon_welcome_logo)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         fragmentManager.beginTransaction()

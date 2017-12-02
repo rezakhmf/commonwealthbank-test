@@ -52,6 +52,8 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:${libs.constraintLayoutVersion}"
     implementation "com.android.support:recyclerview-v7:${libs.supportVersion}"
 
+    //kotlin
+    implementation  "org.jetbrains.anko:anko-common:${libs.ankoCommonVersion}"
     // Dependency Injection
     implementation "com.google.dagger:dagger:${libs.daggerVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
