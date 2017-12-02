@@ -18,7 +18,6 @@ class TransactiosModule(var transactionsItem: GroupedTransactions) {
 
     @Provides
     @Singleton
-    //@Named("groupedTransactions")
     fun provideGroupedTransactions(): GroupedTransactions {
         return transactionsItem
     }

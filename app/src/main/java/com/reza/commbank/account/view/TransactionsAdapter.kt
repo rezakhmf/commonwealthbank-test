@@ -8,29 +8,20 @@ import android.view.ViewGroup
 import com.reza.commbank.R
 import com.reza.commbank.account.model.HeaderItem
 import com.reza.commbank.account.model.ListItem
-import com.reza.commbank.account.model.Transaction
 import com.reza.commbank.account.model.TransactionItem
 import com.reza.commbank.util.DateProvider
 import kotlinx.android.synthetic.main.fragment_transactions_date_item.view.*
 import kotlinx.android.synthetic.main.fragment_transactions_info_item.view.*
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 /**
  * Created by reza on 2/12/17.
  */
-class TransactionsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
-    private var mcallback: Callback? = null
     private var context: Context? = null
     private var items = Collections.emptyList<ListItem>()
-
-    init {
-       // mcallback = callback
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         context = parent?.context
@@ -60,13 +51,8 @@ class TransactionsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
                 holder.mtransactionDate.text = DateProvider.dateWithMonthLabel(header.date)
 
-//                val dateStr = "2/3/2017"
-//                val sdf = SimpleDateFormat("dd/MM/yyyy")
-//                val dddate = sdf.parse(header.date)
-//                val diff = Date().getTime() - dddate.getTime()
-//                TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS).toString()
 
-                holder.mtransactionDays.text = DateProvider.dayDiffWithLable(header.date)
+                holder.mtransactionDays.text = DateProvider.dayDiffWithDayLable(header.date)
             }
             ListItem.TYPE_TRANSACTION -> {
                 val transactionItem = items[position] as TransactionItem
@@ -91,24 +77,12 @@ class TransactionsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private class HeaderViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-
             var mtransactionDate = itemView.transactionDate
-
             var mtransactionDays = itemView.transactionDays
-
     }
 
     class TransactionsViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
             var mtransactionAmount = itemView.transactionAmount
             var mtransactionInfo = itemView.transactionInfo
     }
-
-
-
-    interface Callback {
-        fun onMatchClicked(transaction: Transaction)
-    }
-
 }

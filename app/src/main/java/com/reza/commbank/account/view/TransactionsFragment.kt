@@ -1,7 +1,6 @@
 package com.reza.commbank.account.view
 
 import android.app.Fragment
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,13 +11,10 @@ import com.reza.commbank.CommBankApp
 import com.reza.commbank.R
 import com.reza.commbank.account.model.GroupedTransactions
 import com.reza.commbank.account.model.ListItem
-import com.reza.commbank.account.model.Transaction
 import com.reza.commbank.account.module.AccountModule
 import com.reza.commbank.account.presenter.IAccountPresenter
-import kotlinx.android.synthetic.main.fragment_transactions.*
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Created by reza on 2/12/17.
@@ -28,9 +24,6 @@ class TransactionsFragment: Fragment(), ITransactionsView {
     @Inject
     lateinit var adapter: TransactionsAdapter
 
-    private var callback: CallBack? = null
-    private var transactionList : ArrayList<ListItem>? = null
-
     @Inject
     lateinit var finalTransactions: GroupedTransactions
 
@@ -39,11 +32,6 @@ class TransactionsFragment: Fragment(), ITransactionsView {
 
     val component by lazy {
         CommBankApp.get(activity).commBankComponent.plus(AccountModule(this))
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-      //  callback = context as CallBack
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,18 +59,6 @@ class TransactionsFragment: Fragment(), ITransactionsView {
         this.adapter?.updateTransactions(finalTransactions.transactions)
         rvTransaction.adapter = this.adapter
     }
-
-    interface CallBack {
-        fun onTransactionLoaded(transactions: ArrayList<ListItem>)
-        fun onTransactionClicked(transactions: ArrayList<ListItem>)
-    }
-
-//    override fun showTransactions(transactions: ArrayList<ListItem>) {
-//        this.transactionList?.clear()
-//        this.transactionList?.addAll(transactions)
-//        this.adapter.notifyDataSetChanged()
-//
-//    }
 
     override fun loadingStarted() {
 

@@ -9,11 +9,11 @@ import java.util.concurrent.TimeUnit
  */
 class DateProvider {
     companion object {
-        fun dayDiffWithLable(dateStr: String) : String {
+        fun dayDiffWithDayLable(dateStr: String) : String {
             val sdf = SimpleDateFormat("dd/mm/yyyy")
             val targetDate = sdf.parse(dateStr)
             val diff = Date().getTime() - targetDate.getTime()
-            return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS).toString() + " days ago"
+            return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS).toString().plus(" days ago")
         }
 
         fun dateWithMonthLabel(dateStr: String ) : String {

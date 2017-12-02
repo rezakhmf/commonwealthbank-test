@@ -28,13 +28,7 @@ class AccountActivity : AppCompatActivity(), AccountFragment.CallBack {
 
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_account_container, AccountFragment(), ACCOUNT_FRAGMENT)
-                //.addToBackStack(ACCOUNT_FRAGMENT)
                 .commit()
-
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.fragment_transactions_container, TransactionsFragment(), TRANSACTION_FRAGMENT)
-//                .addToBackStack(ACCOUNT_FRAGMENT)
-//                .commit()
     }
 
     override fun onAccountClicked(accountTransactions: AccountTransactions) {
@@ -43,10 +37,6 @@ class AccountActivity : AppCompatActivity(), AccountFragment.CallBack {
 
     override fun onAccountLoaded(accountTransactions: AccountTransactions) {
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return super.onOptionsItemSelected(item)
     }
 
 }

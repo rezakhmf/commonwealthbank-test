@@ -2,23 +2,19 @@ package com.reza.commbank.account.view
 
 import android.app.Fragment
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.reza.commbank.CommBankApp
 import com.reza.commbank.R
-import com.reza.commbank.account.model.Account
 import com.reza.commbank.account.model.AccountTransactions
 import com.reza.commbank.account.model.GroupedTransactions
 import com.reza.commbank.account.model.ListItem
 import com.reza.commbank.account.module.AccountModule
-import com.reza.commbank.account.presenter.AccountPresenter
 import com.reza.commbank.account.presenter.IAccountPresenter
 import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.android.synthetic.main.fragment_account.view.*
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 /**

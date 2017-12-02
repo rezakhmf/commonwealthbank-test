@@ -1,6 +1,5 @@
 package com.reza.commbank.account.module
 
-import android.app.Fragment
 import com.reza.commbank.account.presenter.AccountPresenter
 import com.reza.commbank.account.presenter.IAccountEndpoint
 import com.reza.commbank.account.presenter.IAccountPresenter
@@ -10,7 +9,6 @@ import com.reza.commbank.account.view.TransactionsFragment
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 /**
  * Created by reza on 30/11/17.
