@@ -11,11 +11,14 @@ import com.reza.commbank.CommBankApp
 import com.reza.commbank.R
 import com.reza.commbank.account.model.Account
 import com.reza.commbank.account.model.AccountTransactions
+import com.reza.commbank.account.model.GroupedTransactions
+import com.reza.commbank.account.model.ListItem
 import com.reza.commbank.account.module.AccountModule
 import com.reza.commbank.account.presenter.AccountPresenter
 import com.reza.commbank.account.presenter.IAccountPresenter
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.view.*
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**
@@ -23,9 +26,12 @@ import javax.inject.Inject
  */
 class AccountFragment : Fragment(), IAccountView {
 
+    val TRANSACTION_FRAGMENT = "TransactionFragment"
 
     @Inject
     lateinit var accountPresenter: IAccountPresenter
+    @Inject
+    lateinit var finalTransactions: GroupedTransactions
 
     private var callback: CallBack? = null
 
@@ -57,12 +63,18 @@ class AccountFragment : Fragment(), IAccountView {
 
     }
 
-    override fun showAccount(accountTransactions: AccountTransactions) {
+    override fun showAccount(accountTransactions: AccountTransactions, transactionsItem: ArrayList<ListItem> ) {
         this.accountTransactions = accountTransactions
+        finalTransactions.transactions = transactionsItem
         accountNumber?.text = accountTransactions?.account?.accountName
         fundsResult?.text = accountTransactions?.account?.balance.toString()
         balanceResult?.text = accountTransactions?.account?.available.toString()
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_transactions_container, TransactionsFragment(), TRANSACTION_FRAGMENT)
+                .commit()
         //progressBarContainer.visibility = View.INVISIBLE
+
 
     }
 

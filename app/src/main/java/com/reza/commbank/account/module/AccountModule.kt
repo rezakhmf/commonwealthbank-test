@@ -5,20 +5,40 @@ import com.reza.commbank.account.presenter.AccountPresenter
 import com.reza.commbank.account.presenter.IAccountEndpoint
 import com.reza.commbank.account.presenter.IAccountPresenter
 import com.reza.commbank.account.view.AccountFragment
+import com.reza.commbank.account.view.TransactionsAdapter
+import com.reza.commbank.account.view.TransactionsFragment
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 /**
  * Created by reza on 30/11/17.
  */
 @Module
-class AccountModule(val fragment: AccountFragment) {
+class AccountModule {
+
+    private lateinit var accountFragment: AccountFragment
+    private lateinit var transactionsFragment: TransactionsFragment
+
+    constructor(accountFragment: AccountFragment) {
+        this.accountFragment = accountFragment
+    }
+
+    constructor(transactionsFragment: TransactionsFragment){
+        this.transactionsFragment = transactionsFragment
+    }
 
     @Provides
     @FragmentScope
     fun provideAccountFragment(): AccountFragment {
-        return fragment
+        return accountFragment
+    }
+
+    @Provides
+    @FragmentScope
+    fun provideTransactionFragment(): TransactionsFragment {
+        return transactionsFragment
     }
 
     @Provides
@@ -33,9 +53,9 @@ class AccountModule(val fragment: AccountFragment) {
         return retrofit.create(IAccountEndpoint::class.java)
     }
 
-//    @Provides
-//    @FragmentScope
-//    fun provideAccountAdaptor(): AccountAdapter {
-//        return M
-//    }
+    @Provides
+    @FragmentScope
+    fun provideTransactionsAdapter(): TransactionsAdapter {
+        return TransactionsAdapter()
+    }
 }

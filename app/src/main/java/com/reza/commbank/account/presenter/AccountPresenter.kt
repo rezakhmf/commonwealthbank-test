@@ -1,10 +1,9 @@
 package com.reza.commbank.account.presenter
 
 import android.util.Log
-import com.reza.commbank.account.model.Account
-import com.reza.commbank.account.model.AccountTransactions
-import com.reza.commbank.account.model.Transaction
+import com.reza.commbank.account.model.*
 import com.reza.commbank.account.view.IAccountView
+import com.reza.commbank.account.view.ITransactionsView
 import com.reza.commbank.commBank.util.API
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +19,10 @@ import org.jetbrains.anko.uiThread
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.stream.Collectors.toMap
+import javax.inject.Inject
+import javax.inject.Named
 import kotlin.reflect.KMutableProperty1
+
 
 /**
  * Created by reza on 30/11/17.
@@ -28,9 +30,13 @@ import kotlin.reflect.KMutableProperty1
 class AccountPresenter(accountEndpoint: IAccountEndpoint) : IAccountPresenter {
 
 
+
+
     private var accountEndPoint: IAccountEndpoint = accountEndpoint
-    private var view: IAccountView? = null
+    private var accountView: IAccountView? = null
+    private var transactionsView: ITransactionsView? = null
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val transactionsItem = ArrayList<ListItem>()
 
 
     override fun displayAccount() {
@@ -40,7 +46,7 @@ class AccountPresenter(accountEndpoint: IAccountEndpoint) : IAccountPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe({
                     if (isViewAttached()) {
-                        view?.loadingStarted()
+                        accountView?.loadingStarted()
                     }
                 })
                 .subscribeBy(
@@ -57,11 +63,15 @@ class AccountPresenter(accountEndpoint: IAccountEndpoint) : IAccountPresenter {
     }
 
     override fun setView(view: IAccountView) {
-        this.view = view
+        this.accountView = view
+    }
+
+    override fun setView(view: ITransactionsView) {
+        this.transactionsView = view
     }
 
     override fun destroy() {
-        view = null
+        accountView = null
         compositeDisposable?.clear()
     }
 
@@ -74,11 +84,35 @@ class AccountPresenter(accountEndpoint: IAccountEndpoint) : IAccountPresenter {
                 doAsync {
                     val groupedTransactions =   accountTransactions.transactions
                             ?.groupBy { it.effectiveDate }
-                    groupedTransactionMap = groupedTransactions
-                    
+
+                    groupedTransactions?.forEach { (date, transactions) ->
+
+                        if(date != null) {
+                            transactionsItem.add(HeaderItem(date))
+                        }
+
+                        transactions.map { it ->
+                            transactionsItem.add(TransactionItem(it))
+                        }
+
+
+
+                        if(transactions != null) {
+
+
+
+//                            for (i in 0 until transactions.count() - 1) {
+//                                items.add(TransactionItem(transactions[i]))
+//                            }
+
+                        }
+
+                    }
+
                 uiThread {
-                        groupedTransactionMap
-                        view?.showAccount(accountTransactions)
+                    //finalTransactions.transactions = transactionsItem
+                    accountView?.showAccount(accountTransactions, transactionsItem)
+                   // transactionsView?.showTransactions(transactionsItem)
                     }
                 }
 
@@ -86,20 +120,17 @@ class AccountPresenter(accountEndpoint: IAccountEndpoint) : IAccountPresenter {
         }
     }
 
-    private fun reza(test: MutableMap<Transaction, Transaction>) {
-        println(test)
-    }
 
     private fun onAccountFetchError(throwable: Throwable) {
         if (isViewAttached()) {
-            view?.loadingFailed(throwable.message)
+            accountView?.loadingFailed(throwable.message)
         } else {
             // do nothing
         }
     }
 
     private fun isViewAttached(): Boolean {
-        return view != null
+        return accountView != null
     }
 
 }

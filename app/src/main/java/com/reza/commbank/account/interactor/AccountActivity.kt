@@ -10,8 +10,7 @@ import com.reza.commbank.R
 import com.reza.commbank.R.color.colorDark
 import com.reza.commbank.account.model.AccountTransactions
 import com.reza.commbank.account.view.AccountFragment
-
-
+import com.reza.commbank.account.view.TransactionsFragment
 
 
 /**
@@ -29,8 +28,13 @@ class AccountActivity : AppCompatActivity(), AccountFragment.CallBack {
 
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_account_container, AccountFragment(), ACCOUNT_FRAGMENT)
-                .addToBackStack(ACCOUNT_FRAGMENT)
+                //.addToBackStack(ACCOUNT_FRAGMENT)
                 .commit()
+
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.fragment_transactions_container, TransactionsFragment(), TRANSACTION_FRAGMENT)
+//                .addToBackStack(ACCOUNT_FRAGMENT)
+//                .commit()
     }
 
     override fun onAccountClicked(accountTransactions: AccountTransactions) {
