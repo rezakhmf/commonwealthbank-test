@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import com.reza.commbank.R
 import com.reza.commbank.account.model.HeaderItem
 import com.reza.commbank.account.model.ListItem
+import com.reza.commbank.account.model.Pending
 import com.reza.commbank.account.model.TransactionItem
 import com.reza.commbank.util.DateProvider
 import kotlinx.android.synthetic.main.fragment_transactions_date_item.view.*
 import kotlinx.android.synthetic.main.fragment_transactions_info_item.view.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.*
 
 
@@ -22,6 +25,7 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var context: Context? = null
     private var items = Collections.emptyList<ListItem>()
+    private var pendings = Collections.emptyList<Pending>()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         context = parent?.context
@@ -50,15 +54,24 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val holder = holder as HeaderViewHolder
 
                 holder.mtransactionDate.text = DateProvider.dateWithMonthLabel(header.date)
-
-
                 holder.mtransactionDays.text = DateProvider.dayDiffWithDayLable(header.date)
             }
             ListItem.TYPE_TRANSACTION -> {
+
                 val transactionItem = items[position] as TransactionItem
                 val holder = holder as TransactionsViewHolder
+
+                var pending = ""
+                doAsync {
+                    pendings.forEach {
+                        if(it.id.equals(transactionItem.transaction.id)) {
+                            pending = "Pending: "
+                        }
+                    }
+                }
+                holder.transactionPending.text = pending
                 holder.mtransactionAmount.text = transactionItem.transaction.amount.toString()
-                holder.mtransactionInfo.text = transactionItem.transaction.description
+                holder.mtransactionInfo.text = pending + transactionItem.transaction.description
             }
             else -> throw IllegalStateException("unsupported item type")
         }
@@ -72,8 +85,9 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items[position].type
     }
 
-    fun updateTransactions(groupedTransactionMap: ArrayList<ListItem>?) {
+    fun updateTransactions(groupedTransactionMap: ArrayList<ListItem>?, pendins: List<Pending>?) {
         this.items = groupedTransactionMap
+        this.pendings = pendins
     }
 
     private class HeaderViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -82,7 +96,8 @@ class TransactionsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class TransactionsViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            var mtransactionAmount = itemView.transactionAmount
-            var mtransactionInfo = itemView.transactionInfo
+        var transactionPending = itemView.transactionPending
+        var mtransactionAmount = itemView.transactionAmount
+        var mtransactionInfo = itemView.transactionInfo
     }
 }

@@ -6,4 +6,5 @@ package com.reza.commbank.account.model
 class GroupedTransactions {
 
      var transactions: ArrayList<ListItem>? = null
+     var pendigs: List<Pending>? = null
 }

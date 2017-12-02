@@ -25,7 +25,7 @@ class TransactionsFragment: Fragment(), ITransactionsView {
     lateinit var adapter: TransactionsAdapter
 
     @Inject
-    lateinit var finalTransactions: GroupedTransactions
+    lateinit var groupedTransactions: GroupedTransactions
 
     @Inject
     lateinit var accountPresenter: IAccountPresenter
@@ -56,7 +56,7 @@ class TransactionsFragment: Fragment(), ITransactionsView {
         rvTransaction.setHasFixedSize(true)
 
 
-        this.adapter?.updateTransactions(finalTransactions.transactions)
+        this.adapter?.updateTransactions(groupedTransactions.transactions, groupedTransactions.pendigs)
         rvTransaction.adapter = this.adapter
     }
 

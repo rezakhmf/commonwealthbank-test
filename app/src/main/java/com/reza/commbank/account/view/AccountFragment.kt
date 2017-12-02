@@ -11,9 +11,12 @@ import com.reza.commbank.R
 import com.reza.commbank.account.model.AccountTransactions
 import com.reza.commbank.account.model.GroupedTransactions
 import com.reza.commbank.account.model.ListItem
+import com.reza.commbank.account.model.Pending
 import com.reza.commbank.account.module.AccountModule
 import com.reza.commbank.account.presenter.IAccountPresenter
 import kotlinx.android.synthetic.main.fragment_account.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.*
 import javax.inject.Inject
 
@@ -27,7 +30,7 @@ class AccountFragment : Fragment(), IAccountView {
     @Inject
     lateinit var accountPresenter: IAccountPresenter
     @Inject
-    lateinit var finalTransactions: GroupedTransactions
+    lateinit var groupedTransactions: GroupedTransactions
 
     private var callback: CallBack? = null
 
@@ -59,9 +62,13 @@ class AccountFragment : Fragment(), IAccountView {
 
     }
 
-    override fun showAccount(accountTransactions: AccountTransactions, transactionsItem: ArrayList<ListItem> ) {
+    override fun showAccount(accountTransactions: AccountTransactions,
+                             transactionsItem: ArrayList<ListItem>) {
+
         this.accountTransactions = accountTransactions
-        finalTransactions.transactions = transactionsItem
+        groupedTransactions.transactions = transactionsItem
+        groupedTransactions.pendigs = accountTransactions.pending
+
         accountNumber?.text = accountTransactions?.account?.accountNumber
         fundsResult?.text = accountTransactions?.account?.balance.toString()
         balanceResult?.text = accountTransactions?.account?.available.toString()
