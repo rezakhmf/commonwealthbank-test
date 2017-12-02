@@ -11,11 +11,24 @@
         android:layout_height="185dp"
         android:background="@color/colorBorderGreen" />
 
+    <View
+        android:id="@+id/whiteContainer"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@id/fundsResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/wallet"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="36dp"
+
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,23 +41,13 @@
         android:layout_marginStart="24dp"
         android:fontFamily="@font/open_sans_light"
         android:text="Complete Access"
+        android:background="@color/colorGrayBackground"
         android:textAlignment="viewStart"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/wallet"
         app:layout_constraintTop_toTopOf="@+id/wallet" />
-
-    <View
-        android:id="@+id/grayContainer"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@color/colorGrayBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wallet" />
 
     <TextView
         android:id="@+id/accountNumber"
@@ -57,6 +60,17 @@
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@+id/completeAccess"
         app:layout_constraintTop_toBottomOf="@+id/completeAccess" />
+
+    <View
+        android:id="@+id/grayContainer"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/colorGrayBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallet" />
 
 
     <TextView
@@ -116,28 +130,17 @@
         app:layout_constraintRight_toRightOf="@+id/fundsResult"
         app:layout_constraintTop_toBottomOf="@+id/fundsResult" />
 
-    <View
-        android:id="@+id/whiteContainer"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@id/fundsResult"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<FrameLayout-->
-        <!--android:id="@+id/progressBarContainer"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@color/colorGrayBackground">-->
-        <!--<ProgressBar-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"/>-->
-    <!--</FrameLayout>-->
+    <FrameLayout
+        android:id="@+id/progressBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorGrayBackground">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -66,14 +66,14 @@ class AccountFragment : Fragment(), IAccountView {
     override fun showAccount(accountTransactions: AccountTransactions, transactionsItem: ArrayList<ListItem> ) {
         this.accountTransactions = accountTransactions
         finalTransactions.transactions = transactionsItem
-        accountNumber?.text = accountTransactions?.account?.accountName
+        accountNumber?.text = accountTransactions?.account?.accountNumber
         fundsResult?.text = accountTransactions?.account?.balance.toString()
         balanceResult?.text = accountTransactions?.account?.available.toString()
 
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_transactions_container, TransactionsFragment(), TRANSACTION_FRAGMENT)
                 .commit()
-        //progressBarContainer.visibility = View.INVISIBLE
+        progressBarContainer.visibility = View.INVISIBLE
 
 
     }
