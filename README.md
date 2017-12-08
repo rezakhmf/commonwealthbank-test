@@ -2,7 +2,7 @@
 
 # Project Title
 
-Match Top Player
+Common Wealth Bank Android App Transaction Page
 
 ## Getting Started
 
@@ -13,7 +13,9 @@ This project is done in Kotlin with respectful to Clean Architecture
 Kotlin
 
 
-![Main Screen](https://github.com/rezakhmf/commonwealthbank-test/upload/masterg)
+![Main Screen](https://github.com/rezakhmf/commonwealthbank-test/upload/master/Screenshot_1512229151.png	
+ 
+)
 
 
 ### Installing
