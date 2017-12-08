@@ -13,7 +13,9 @@ This project is done in Kotlin with respectful to Clean Architecture
 Kotlin
 
 
-![Main Screen](https://github.com/rezakhmf/commonwealthbank-test/upload/master/Screenshot_1512229151.png)
+![Main Screen](https://github.com/rezakhmf/commonwealthbank-test/blob/master/Screenshot_1512229151.png)
+
+
 
 
 ### Installing
